@@ -1,0 +1,43 @@
+USER STORIES!
+
+- As a user I want to keep track of the things that I want to do
+- As a user I want to be able to categorize my to do list automatically
+- As a user I want to be able add items from my list
+- As a user I want to be able to remove items from my list
+- As a user I want to be able to edit things from my list
+- As a user I want to be able to mark an item as completed
+- As a user I want to be able to see the items that I completed
+- As a user I want to be able to prioritize/reOrder things from my list
+- As a user I don't want other people to see/edit/remove things from my list
+- As a user I want to see how many items are in a list
+- As a user I want to see my percentage of completion for each list
+- As a user I want to be able to create my own category (stretch)
+
+MVP!!
+
+- A completed app
+- view to watch list
+- view to eat list
+- view to read list
+- view to buy list
+- each item added will be auto categorize and added to a list
+- should be able to change category or manually categorize item
+- users should be able to update their profile? (Ask Bryan) (What does update means in this case??? (list item or user information))
+- SPA
+- submission form for the things we want to do including a submit button
+
+
+STRETCH!!!
+
+- create my own category (stretch)
+- edit things from my list
+- remove items from my list
+- mark an item as completed
+- see the items that I completed
+- prioritize/reOrder things from my list
+- see how many items are in a list
+- see my percentage of completion for each list
+- Page navigation buttons
+- Viewport scaling/Responsiveness
+- Tell user what category the item has been added to
+- Automatically scroll down to the list that its been added to
