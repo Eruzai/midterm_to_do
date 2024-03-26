@@ -7,4 +7,4 @@ CREATE TABLE items (
   category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
   is_completed BOOLEAN NOT NULL DEFAULT FALSE,
   is_deleted BOOLEAN NOT NULL DEFAULT FALSE
-)
+);
