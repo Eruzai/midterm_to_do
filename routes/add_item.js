@@ -19,4 +19,17 @@ router.get('/', (req, res) => {
     });
 });
 
+router.post('/', (req, res) => {
+  const { title } = req.body;
+
+  return db.query('INSERT INTO items (title) VALUES ($1)', [title])
+  .then(res => {
+    console.log(res)
+    return res.rows[0]
+  })
+  .catch(err => {
+    console.log(err.message)
+  })
+})
+
 module.exports = router;
