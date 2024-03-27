@@ -1,0 +1,32 @@
+body {
+   background-color: rgba(255, 254, 223, 0.762);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+
+}
+
+.category-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.category-btn button {
+  margin-right: 5px;
+}
+
+
+
