@@ -35,6 +35,8 @@ const itemApiRoutes = require('./routes/items-api');
 const categoriesApiRoutes = require('./routes/categories-api');
 const categoryItemsRoute = require('./routes/items_by_category_and_user');
 const addItemRoute = require('./routes/add_item');
+const logInRoute = require('./routes/login');
+const logOutRoute = require('./routes/logout');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -45,7 +47,10 @@ app.use('/users', usersRoutes);
 app.use('/api/items', itemApiRoutes);
 app.use('/api/categories', categoriesApiRoutes);
 app.use('/api/categoryitems', categoryItemsRoute);
-app.use('/addItem', addItemRoute);
+app.use('/additem', addItemRoute);
+app.use('/login', logInRoute);
+app.use('/logout', logOutRoute);
+
 // Note: mount other resources here, using the same pattern above
 
 // Home page
