@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/styles/style.css">
+
+  <script defer src="/scripts/app.js"></script>
   <title>SMART TO DO</title>
 </head>
 <body>
@@ -18,15 +20,30 @@
       <button type="submit">Submit</button>
     </form>
     <div class="category-btn">
-      <button class="movies">To watch</button>
-      <button class="books">To read</button>
-      <button class="foods">To eat</button>
-      <button class="products">To buy</button>
+      <form action="/api/categoryitems" method="get">
+        <input type="hidden" name="categoryId" value="1">
+        <button type="submit" class="fetch-movies">To watch</button>
+      </form>
+
+      <form action="/api/categoryitems" method="get">
+        <input type="hidden" name="categoryId" value="2">
+        <button type="submit" class="fetch-books">To read</button>
+      </form>
+
+      <form action="/api/categoryitems" method="get">
+        <input type="hidden" name="categoryId" value="3">
+        <button type="submit" class="fetch-foods">To eat</button>
+      </form>
+
+      <form action="/api/categoryitems" method="get">
+        <input type="hidden" name="categoryId" value="4">
+        <button type="submit" class="fetch-products">To buy</button>
+      </form>
     </div>
 
     <div class="list-container">
       <div class="progress">PROGRESS</div>
-      <div class="items"></div>
+      <ul class="items"></ul>
     </div>
 
   </main>
