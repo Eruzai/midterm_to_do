@@ -20,3 +20,7 @@ router.post('/', (req, res) => {
 });
 
 module.exports = router;
+
+// API suggestions
+// https://www.googleapis.com/books/v1/volumes?q=<book title>
+// https://www.omdbapi.com/?apikey=52640320&t=<movie title>
