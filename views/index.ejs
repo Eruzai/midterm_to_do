@@ -9,42 +9,48 @@
   <title>SMART TO DO</title>
 </head>
 <body>
+
   <header>
     <div>SMART TODO LIST</div>
   </header>
-  <main>
-    <!-- not yet sure about this end point -->
-    <form action="/additem" method="POST">
-      <label for="title">Add TODO items here</label>
-      <input type="text" id="title" name="title">
-      <button type="submit">Submit</button>
-    </form>
-    <div class="category-btn">
-      <form action="/api/categoryitems" method="get">
-        <input type="hidden" name="categoryId" value="1">
-        <button type="submit" class="fetch-movies">To watch</button>
-      </form>
 
-      <form action="/api/categoryitems" method="get">
-        <input type="hidden" name="categoryId" value="2">
-        <button type="submit" class="fetch-books">To read</button>
+  <main class="container">
+    <!-- ADD ITEM SECTION -->
+    <section class="add-item">
+      <form action="/additem" method="POST">
+        <label for="title">Add TODO items here</label>
+        <input type="text" id="title" name="title">
+        <button type="submit">Submit</button>
       </form>
+    </section>
 
-      <form action="/api/categoryitems" method="get">
-        <input type="hidden" name="categoryId" value="3">
-        <button type="submit" class="fetch-foods">To eat</button>
-      </form>
+    <!-- CATEGORIES SECTION -->
+    <section class="categories-container">
+        <form action="/api/categoryitems" method="get">
+          <input type="hidden" name="categoryId" value="1">
+          <button type="submit" class="fetch-btn">To watch</button>
+        </form>
 
-      <form action="/api/categoryitems" method="get">
-        <input type="hidden" name="categoryId" value="4">
-        <button type="submit" class="fetch-products">To buy</button>
-      </form>
-    </div>
+        <form action="/api/categoryitems" method="get">
+          <input type="hidden" name="categoryId" value="2">
+          <button type="submit" class="fetch-btn">To read</button>
+        </form>
 
-    <div class="list-container">
-      <div class="progress">PROGRESS</div>
-      <ul class="items"></ul>
-    </div>
+        <form action="/api/categoryitems" method="get">
+          <input type="hidden" name="categoryId" value="3">
+          <button type="submit" class="fetch-btn">To eat</button>
+        </form>
+
+        <form action="/api/categoryitems" method="get">
+          <input type="hidden" name="categoryId" value="4">
+          <button type="submit" class="fetch-btn">To buy</button>
+        </form>
+    </section>
+
+    <!-- ITEMS SECTION -->
+    <section class="items-container">
+
+    </section>
 
   </main>
 </body>
