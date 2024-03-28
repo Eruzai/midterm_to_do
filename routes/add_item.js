@@ -1,14 +1,38 @@
 const express = require('express');
 const router  = express.Router();
 const addItem = require('../db/queries/addItems');
-const usersItemsByList = require('../db/queries/category_list');
+const isBook = require('../route_helpers/book_search_api');
+const isMovie = require('../route_helpers/movie_search_api');
+//const isRestaurant = require('../route_helpers/restaurant_search_api');
 
 router.post('/', (req, res) => {
-  const { title } = req.body;
-  const user = 1;
-  const category = 1;
+  const title = req.body.title;
+  let user = 1;
+  let category = 4;
 
-  addItem.addItem(title, user, category)
+  isBook.findIfBookExists(title)
+    .then(data => {
+      if(data) {
+        category = 2;
+        return Promise.resolve(); // Return a resolved promise to continue the chain
+      } else {
+        return isMovie.findIfMovieExists(title);
+      }
+    })
+    .then(data => {
+      if(data) {
+        category = 1;
+        //return Promise.resolve();
+       } //else {
+    //     return isRestaurant.findIfRestaurantExists(title);
+    //   }
+    // })
+    // .then(data => {
+    //   if(data) {
+    //     category = 3;
+    //   }
+      return addItem.addItem(title, user, category);
+    })
     .then(data => {
       res.json({ data });
     })
@@ -20,31 +44,3 @@ router.post('/', (req, res) => {
 });
 
 module.exports = router;
-
-// API suggestions
-// https://www.googleapis.com/books/v1/volumes?q=<book title>
-// https://www.omdbapi.com/?apikey=52640320&t=<movie title>
-
-// const request = require('request');
-
-// const options = {
-//   method: 'POST',
-//   url: 'https://worldwide-restaurants.p.rapidapi.com/search',
-//   headers: {
-//     'content-type': 'application/x-www-form-urlencoded',
-//     'X-RapidAPI-Key': 'bfd2ae10dcmsh0782860466907c5p113f17jsn4f8868665966',
-//     'X-RapidAPI-Host': 'worldwide-restaurants.p.rapidapi.com'
-//   },
-//   form: {
-//     language: 'en_US',
-//     location_id: '297704',
-//     currency: 'USD',
-//     offset: '0'
-//   }
-// };
-
-// request(options, function (error, response, body) {
-// 	if (error) throw new Error(error);
-
-// 	console.log(body);
-// });
