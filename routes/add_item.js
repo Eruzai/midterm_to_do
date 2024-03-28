@@ -28,11 +28,18 @@ module.exports = router;
 // const request = require('request');
 
 // const options = {
-//   method: 'GET',
-//   url: 'https://worldwide-restaurants.p.rapidapi.com/currencies',
+//   method: 'POST',
+//   url: 'https://worldwide-restaurants.p.rapidapi.com/search',
 //   headers: {
+//     'content-type': 'application/x-www-form-urlencoded',
 //     'X-RapidAPI-Key': 'bfd2ae10dcmsh0782860466907c5p113f17jsn4f8868665966',
 //     'X-RapidAPI-Host': 'worldwide-restaurants.p.rapidapi.com'
+//   },
+//   form: {
+//     language: 'en_US',
+//     location_id: '297704',
+//     currency: 'USD',
+//     offset: '0'
 //   }
 // };
 
