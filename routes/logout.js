@@ -3,8 +3,8 @@ const router  = express.Router();
 
 // Log a user out
 router.post("/", (req, res) => {
-  req.session.userId = null;
-  res.send({});
+  req.session = null;
+  res.redirect('/');
 });
 
 module.exports = router;
