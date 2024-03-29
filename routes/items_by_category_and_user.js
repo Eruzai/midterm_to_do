@@ -2,8 +2,6 @@ const express = require('express');
 const router  = express.Router();
 const usersItemsByList = require('../db/queries/category_list');
 
-// TODO: used logged in user id and change category from button selection on page.
-
 router.get('/', (req, res) => {
 
   const user = req.session.userId
