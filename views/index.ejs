@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="/styles/style.css">
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script defer src="/scripts/app.js"></script>
+  <script src="/scripts/app.js"></script>
   <title>SMART TO DO</title>
 </head>
 <body>
@@ -49,22 +49,22 @@
 
     <!-- CATEGORIES SECTION -->
     <section class="categories-container">
-        <form action="/api/categoryitems" method="get">
+        <form action="/api/categoryitems" method="get" ondrop="" ondragover="">
           <input type="hidden" name="categoryId" value="1">
           <button type="submit" class="fetch-movies">To watch</button>
         </form>
 
-        <form action="/api/categoryitems" method="get">
+        <form action="/api/categoryitems" method="get" ondrop="" ondragover="">
           <input type="hidden" name="categoryId" value="2">
           <button type="submit" class="fetch-books">To read</button>
         </form>
 
-        <form action="/api/categoryitems" method="get">
+        <form action="/api/categoryitems" method="get" ondrop="" ondragover="">
           <input type="hidden" name="categoryId" value="3">
-          <button type="submit" class="fetch-foods">To eat</button>
+          <button type="submit" class="fetch-restaurants">To eat</button>
         </form>
 
-        <form action="/api/categoryitems" method="get">
+        <form action="/api/categoryitems" method="get" ondrop="" ondragover="">
           <input type="hidden" name="categoryId" value="4">
           <button type="submit" class="fetch-products">To buy</button>
         </form>
