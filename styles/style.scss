@@ -34,3 +34,9 @@ body {
 .categories-container button {
   margin-right: 7px;
 }
+
+.items-container {
+  display: flex;
+  flex-direction: column;
+}
+
