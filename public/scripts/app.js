@@ -1,7 +1,17 @@
 // Client facing scripts here
 $(document).ready(function() {
-  const fetchMovies = () => {
 
+  const createItemElement = (titles) => {
+    for (const title of titles) {
+      const $item = `
+        <h3>${title}</h3>
+      `
+      return $item;
+    }
+  }
+
+  const fetchMovies = () => {
+    
   }
 
   const fetchBooks = () => {
@@ -15,4 +25,10 @@ $(document).ready(function() {
   const fetchProducts = () => {
 
   }
+
+  const loadItems = () => {
+
+  }
+
+  loadTweets();
 })
