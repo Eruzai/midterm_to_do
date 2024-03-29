@@ -55,19 +55,23 @@ $(document).ready(function() {
     })
   }
 
-  $('.fetch-movies').on("click", () => {
+  $('.fetch-movies').on("click", (event) => {
+    event.preventDefault();
     fetchMovies();
   })
 
-  $('.fetch-books').on("click", () => {
+  $('.fetch-books').on("click", (event) => {
+    event.preventDefault();
     fetchBooks();
   })
 
-  $('.fetch-foods').on("click", () => {
+  $('.fetch-foods').on("click", (event) => {
+    event.preventDefault();
     fetchFoods();
   })
 
-  $('.fetch-products').on("click", () => {
+  $('.fetch-products').on("click", (event) => {
+    event.preventDefault();
     fetchProducts();
   })
 })
