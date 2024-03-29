@@ -1,9 +1,9 @@
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 const addItem = require('../db/queries/addItems');
 const isBook = require('../route_helpers/book_search_api');
 const isMovie = require('../route_helpers/movie_search_api');
-//const isRestaurant = require('../route_helpers/restaurant_search_api');
+const isRestaurant = require('../route_helpers/restaurant_search_api');
 
 router.post('/', (req, res) => {
   const title = req.body.title;
@@ -12,7 +12,7 @@ router.post('/', (req, res) => {
 
   isBook.findIfBookExists(title)
     .then(data => {
-      if(data) {
+      if (data) {
         category = 2;
         return Promise.resolve(); // Return a resolved promise to continue the chain
       } else {
@@ -20,17 +20,17 @@ router.post('/', (req, res) => {
       }
     })
     .then(data => {
-      if(data) {
+      if (data) {
         category = 1;
-        //return Promise.resolve();
-       } //else {
-    //     return isRestaurant.findIfRestaurantExists(title);
-    //   }
-    // })
-    // .then(data => {
-    //   if(data) {
-    //     category = 3;
-    //   }
+        return Promise.resolve();
+      } else {
+        return isRestaurant.findIfRestaurantExists(title);
+      }
+    })
+    .then(data => {
+      if (data) {
+        category = 3;
+      }
       return addItem.addItem(title, user, category);
     })
     .then(data => {
