@@ -11,7 +11,8 @@ router.get('/', (req, res) => {
 
   usersItemsByList.getCategoryList(user, category)
     .then(data => {
-      res.json( {data} );
+      const titles = data.map(item => item.title)
+      res.json( {titles} );
     })
     .catch(err => {
       res
