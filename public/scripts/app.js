@@ -55,6 +55,16 @@ $(document).ready(function() {
     })
   }
 
+  const fetchCategoryItems = (id) => {
+    $.ajax({
+      url: `/api/categoryitems?categoryId=${id}`,
+      method: 'GET',
+      success: (res) => {
+        displayItems(res.titles);
+      }
+    })
+  }
+
   $('.fetch-movies').on("click", (event) => {
     event.preventDefault();
     fetchMovies();
@@ -73,5 +83,16 @@ $(document).ready(function() {
   $('.fetch-products').on("click", (event) => {
     event.preventDefault();
     fetchProducts();
+  })
+
+  $('.add-todo-item').on("click", (event) => {
+    event.preventDefault();
+    const $textObject = $(this).find('#title');
+    const serialText = $textObject.serialize();
+    $.post('/additem', serialText)
+        .then((data) => {
+          const id = data.data[0].category_id;
+          fetchCategoryItems(id);
+        });
   })
 })
