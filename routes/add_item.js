@@ -7,7 +7,7 @@ const isMovie = require('../route_helpers/movie_search_api');
 
 router.post('/', (req, res) => {
   const title = req.body.title;
-  let user = 1;
+  let user = req.session.userId;
   let category = 4;
 
   isBook.findIfBookExists(title)
