@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/styles/style.css">
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script defer src="/scripts/app.js"></script>
   <title>SMART TO DO</title>
 </head>
@@ -54,17 +55,17 @@
 
         <form action="/api/categoryitems" method="get">
           <input type="hidden" name="categoryId" value="2">
-          <button type="submit" class="fetch-btn">To read</button>
+          <button type="submit" class="fetch-books">To read</button>
         </form>
 
         <form action="/api/categoryitems" method="get">
           <input type="hidden" name="categoryId" value="3">
-          <button type="submit" class="fetch-btn">To eat</button>
+          <button type="submit" class="fetch-foods">To eat</button>
         </form>
 
         <form action="/api/categoryitems" method="get">
           <input type="hidden" name="categoryId" value="4">
-          <button type="submit" class="fetch-btn">To buy</button>
+          <button type="submit" class="fetch-products">To buy</button>
         </form>
     </section>
 
