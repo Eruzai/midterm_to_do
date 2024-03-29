@@ -15,46 +15,6 @@ $(document).ready(function() {
   titleList.append(ul);
   }
 
-  const fetchMovies = () => {
-    $.ajax({
-      url: '/api/categoryitems?categoryId=1',
-      method: 'GET',
-      success: (res) => {
-        displayItems(res.titles);
-      }
-    })
-  }
-
-  const fetchBooks = () => {
-    $.ajax({
-      url: '/api/categoryitems?categoryId=2',
-      method: 'GET',
-      success: (res) => {
-        displayItems(res.titles);
-      }
-    })
-  }
-
-  const fetchFoods = () => {
-    $.ajax({
-      url: '/api/categoryitems?categoryId=3',
-      method: 'GET',
-      success: (res) => {
-        displayItems(res.titles);
-      }
-    })
-  }
-
-  const fetchProducts = () => {
-    $.ajax({
-      url: '/api/categoryitems?categoryId=4',
-      method: 'GET',
-      success: (res) => {
-        displayItems(res.titles);
-      }
-    })
-  }
-
   const fetchCategoryItems = (id) => {
     $.ajax({
       url: `/api/categoryitems?categoryId=${id}`,
@@ -67,22 +27,22 @@ $(document).ready(function() {
 
   $('.fetch-movies').on("click", (event) => {
     event.preventDefault();
-    fetchMovies();
+    fetchCategoryItems(1);
   })
 
   $('.fetch-books').on("click", (event) => {
     event.preventDefault();
-    fetchBooks();
+    fetchCategoryItems(2);
   })
 
   $('.fetch-foods').on("click", (event) => {
     event.preventDefault();
-    fetchFoods();
+    fetchCategoryItems(3);
   })
 
   $('.fetch-products').on("click", (event) => {
     event.preventDefault();
-    fetchProducts();
+    fetchCategoryItems(4);
   })
 
   $('.add-todo-item').on("click", (event) => {
