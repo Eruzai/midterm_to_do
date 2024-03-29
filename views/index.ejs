@@ -10,11 +10,29 @@
 </head>
 <body>
 
-  <header>
+  <header class="header">
     <div>SMART TODO LIST</div>
   </header>
 
   <main class="container">
+    <!-- LOGIN SECTION -->
+    <section class="login">
+      <form action="/login" method="post">
+        <input type="hidden" name="userId" value="1">
+        <button class="user-btn" type="submit">USER 1</button>
+      </form>
+
+      <form action="/login" method="post">
+        <input type="hidden" name="userId" value="2">
+        <button class="user-btn" type="submit">USER 2</button>
+      </form>
+
+      <form action="/login" method="post">
+        <input type="hidden" name="userId" value="3">
+        <button class="user-btn" type="submit">USER 3</button>
+      </form>
+    </section>
+
     <!-- ADD ITEM SECTION -->
     <section class="add-item">
       <form action="/additem" method="POST">
@@ -48,9 +66,7 @@
     </section>
 
     <!-- ITEMS SECTION -->
-    <section class="items-container">
-      <ul class="items"></ul>
-    </section>
+    <section class="items-container"></section>
 
   </main>
 </body>
