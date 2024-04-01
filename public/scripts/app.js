@@ -52,25 +52,34 @@ $(document).ready(function () {
     fetchCategoryItems(event.target.id);
   })
 
+  $('.list-items')
+  .on("dragenter", function(event) {
+    event.preventDefault();
+    const listID = event.target.id;
+    const listContainer = $(this).parents().find('.items-container');
+    $(listContainer).attr("name", listID);
+    fetchCategoryItems(listID);
+  })
+
   $('.items-container')
-  .on("dragstart", ".item", (event) => {
-    console.log(event.target.textContent);
-    event.originalEvent.dataTransfer.setData('text', event.target.textContent);
+  .on("dragstart", (event) => {
+    const item = event.target.textContent
+    event.originalEvent.dataTransfer.setData('text', item);
   })
   .on("dragover", (event) => {
     event.preventDefault();
     highlightBtn(event, 2);
   })
-  .on("drop", (event) => {
+  .on("drop", function(event) {
     const data = event.originalEvent.dataTransfer.getData('text');
-    console.log(data);
-    $.post('/update', {category_id: 1, title: data})
-      .then((data) => {
-        const id = data.data[0].category_id;
-        fetchCategoryItems(id);
+    const catID = $(this).attr("name");
+    $.post('/updateitem', {categoryID: catID, title: data})
+      .then(() => {
+        fetchCategoryItems(catID);
       });
   })
 
+<<<<<<< HEAD
   $('.list-items')
   .on("dragenter", (event) => {
     event.preventDefault();
@@ -82,6 +91,8 @@ $(document).ready(function () {
     highlightBtn(event, 4);
     fetchCategoryItems(event.target.id);
   })
+=======
+>>>>>>> d22bc01 (feat: drag items to add to different list)
 
   $('.add-todo-item').on("click", function(event) {
     event.preventDefault();
