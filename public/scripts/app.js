@@ -83,7 +83,8 @@ $(document).ready(function () {
 
         $('.user-btn').each((index, element) => {
           $(element).on('click', (event) => {
-            // event.preventDefault();
+
+            // event.preventDefault(); // its broken for now. im not getting logged in because of this preventDefault!!!
             const userEmail = users[index].email;
             displayUser(userEmail);
             $('.user-btn').hide();
