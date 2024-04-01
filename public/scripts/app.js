@@ -31,24 +31,34 @@ $(document).ready(function () {
     })
   }
 
+  const highlightBtn = (event, categoryId) => {
+    event.preventDefault();
+
+    // Remove background color from all buttons
+    $('.fetch-movies, .fetch-books, .fetch-foods, .fetch-products').css("background-color", "");
+
+    fetchCategoryItems(categoryId);
+    $(event.target).css("background-color", "red"); // Change background color of the clicked element
+};
+
   $('.fetch-movies').on("click", (event) => {
     event.preventDefault();
-    fetchCategoryItems(1);
+    highlightBtn(event, 1);
   })
 
   $('.fetch-books').on("click", (event) => {
     event.preventDefault();
-    fetchCategoryItems(2);
+    highlightBtn(event, 2);
   })
 
   $('.fetch-foods').on("click", (event) => {
     event.preventDefault();
-    fetchCategoryItems(3);
+    highlightBtn(event, 3);
   })
 
   $('.fetch-products').on("click", (event) => {
     event.preventDefault();
-    fetchCategoryItems(4);
+    highlightBtn(event, 4);
   })
 
   $('.add-todo-item').on("click", (event) => {
