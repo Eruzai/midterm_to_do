@@ -8,7 +8,7 @@ $(document).ready(function () {
     const ul = $('<ul></ul>');
 
     $.each(titles, (index, title) => {
-      const li = $('<li draggable="true"></li>').text(title);
+      const li = $('<li class="item" draggable="true"></li>').text(title);
       ul.append(li);
     });
 
@@ -45,13 +45,34 @@ $(document).ready(function () {
     event.preventDefault();
     highlightBtn(event, 1);
   })
+  
+  $('.list-items')
+  .on("click mouseover", (event) => {
+    event.preventDefault();
+    fetchCategoryItems(event.target.id);
+  })
 
-  $('.fetch-books').on("click, mouseover", (event) => {
+  $('.items-container')
+  .on("dragstart", ".item", (event) => {
+    console.log(event.target.textContent);
+    event.originalEvent.dataTransfer.setData('text', event.target.textContent);
+  })
+  .on("dragover", (event) => {
     event.preventDefault();
     highlightBtn(event, 2);
   })
+  .on("drop", (event) => {
+    const data = event.originalEvent.dataTransfer.getData('text');
+    console.log(data);
+    $.post('/update', {category_id: 1, title: data})
+      .then((data) => {
+        const id = data.data[0].category_id;
+        fetchCategoryItems(id);
+      });
+  })
 
-  $('.fetch-restaurants').on("click, mouseover", (event) => {
+  $('.list-items')
+  .on("dragenter", (event) => {
     event.preventDefault();
     highlightBtn(event, 3);
   })
@@ -59,6 +80,7 @@ $(document).ready(function () {
   $('.fetch-products').on("click, mouseover", (event) => {
     event.preventDefault();
     highlightBtn(event, 4);
+    fetchCategoryItems(event.target.id);
   })
 
   $('.add-todo-item').on("click", function(event) {
