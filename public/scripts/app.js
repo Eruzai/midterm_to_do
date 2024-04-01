@@ -1,5 +1,5 @@
 // Client facing scripts here
-$(document).ready(function() {
+$(document).ready(function () {
 
   const displayItems = (titles) => {
     const titleList = $('.items-container');
@@ -10,9 +10,15 @@ $(document).ready(function() {
     $.each(titles, (index, title) => {
       const li = $('<li></li>').text(title);
       ul.append(li);
-  });
+    });
 
-  titleList.append(ul);
+    titleList.append(ul);
+  }
+
+  const displayUser = (email) => {
+    const userContainer = $('.user-login')
+
+    userContainer.text(`Logged in as: ${email}`)
   }
 
   const fetchCategoryItems = (id) => {
@@ -50,9 +56,39 @@ $(document).ready(function() {
     const $textObject = $(this).find('#title');
     const serialText = $textObject.serialize();
     $.post('/additem', serialText)
-        .then((data) => {
-          const id = data.data[0].category_id;
-          fetchCategoryItems(id);
-        });
+      .then((data) => {
+        const id = data.data[0].category_id;
+        fetchCategoryItems(id);
+      });
+    $('#title').val('');
   })
+
+  const fetchUsers = () => {
+    $.ajax({
+      url: '/api/users',
+      method: 'GET',
+      success: (res) => {
+
+        const users = res.users;
+
+        $('.user-btn').each((index, element) => {
+          $(element).on('click', (event) => {
+            // event.preventDefault();
+            const userEmail = users[index].email;
+            displayUser(userEmail);
+            $('.user-btn').hide();
+
+            const logoutBtn = $('<button type="submit" class="logout-btn"/>')
+            $('.logout').append(logoutBtn)
+            logoutBtn.html('Logout')
+
+          });
+        });
+      }
+    })
+  }
+
+  fetchUsers();
+
+
 })
