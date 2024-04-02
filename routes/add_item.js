@@ -4,9 +4,11 @@ const addItem = require('../db/queries/addItems');
 const isBook = require('../route_helpers/book_search_api');
 const isMovie = require('../route_helpers/movie_search_api');
 const isRestaurant = require('../route_helpers/restaurant_search_api');
+const convert = require('../route_helpers/convert_spaces');
 
 router.post('/', (req, res) => {
   const title = req.body.title;
+  convert(title);
   let user = req.session.userId;
   let category = 4;
 
