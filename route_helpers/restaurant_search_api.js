@@ -12,11 +12,11 @@ const findIfRestaurantExists = (string) => {
     }
   };
 
-  const restaurant = convert(string)
-  return request(`https://api.yelp.com/v3/businesses/search?location=Canada&term=${restaurant}&sort_by=best_match&limit=20`, options)
+  // const restaurant = convert(string)
+  return request(`https://api.yelp.com/v3/businesses/search?location=Canada&term=${string}&sort_by=best_match&limit=20`, options)
   .then((body) => {
     const data = JSON.parse(body).businesses[0].name;
-    if(data === string) {
+    if(data == string) {
       return true;
     } else {
       return false;
