@@ -32,25 +32,19 @@ $(document).ready(function () {
   }
 
   const highlightBtn = (event, categoryId) => {
-    event.preventDefault();
+    // event.preventDefault();
 
     // Remove background color from all buttons
     $('.list-items').css("background-color", "");
 
-    fetchCategoryItems(categoryId);
+    // fetchCategoryItems(categoryId);
     $(event.target).css("background-color", "red"); // Change background color of the clicked element
   };
 
   $('.list-items').on("click mouseover", (event) => {
     event.preventDefault();
-    const categoryID = event.target.id
+    const categoryID = event.target.id;
     highlightBtn(event, categoryID);
-    fetchCategoryItems(event.target.id);
-  })
-
-  $('.list-items')
-  .on("click mouseover", (event) => {
-    event.preventDefault();
     fetchCategoryItems(event.target.id);
   })
 
@@ -60,17 +54,19 @@ $(document).ready(function () {
     const listID = event.target.id;
     const listContainer = $(this).parents().find('.items-container');
     $(listContainer).attr("name", listID);
+    highlightBtn(event, listID);
     fetchCategoryItems(listID);
+  })
+
+  $('.items-container')
+  .on("dragover", (event) => {
+    event.preventDefault();
   })
 
   $('.items-container')
   .on("dragstart", (event) => {
     const item = event.target.textContent
     event.originalEvent.dataTransfer.setData('text', item);
-  })
-  .on("dragover", (event) => {
-    event.preventDefault();
-    highlightBtn(event, 2);
   })
   .on("drop", function(event) {
     const data = event.originalEvent.dataTransfer.getData('text');
@@ -81,26 +77,15 @@ $(document).ready(function () {
       });
   })
 
-  $('.list-items')
-  .on("dragenter", (event) => {
-    event.preventDefault();
-    highlightBtn(event, 3);
-  })
-
-  $('.fetch-products').on("click, mouseover", (event) => {
-    event.preventDefault();
-    highlightBtn(event, 4);
-    fetchCategoryItems(event.target.id);
-  })
-
   $('.add-todo-item').on("click", function(event) {
     event.preventDefault();
-    const $textObject = $(this).find('#title');
+    const $textObject = $('#title');
     const serialText = $textObject.serialize();
     $.post('/additem', serialText)
       .then((data) => {
         const id = data.data[0].category_id;
         fetchCategoryItems(id);
+        highlightBtn(event, id);
       });
     $('#title').val('');
   })
@@ -144,16 +129,16 @@ $(document).ready(function () {
   $('.error-msg1').hide()
   $('.error-msg2').hide()
 
-  $.ajax({
-    url: '/additem',
-    type: 'POST',
-    success: (res) => {
-      if (!res.status) {
-        // If user try to add an item while not logged in, display error message
-        $('.add-todo-item').on("click", () => {
-          $('.error-msg1').show()
-        })
-      }
-    },
-  });
+  // $.ajax({
+  //   url: '/additem',
+  //   type: 'POST',
+  //   success: (res) => {
+  //     if (!res.status) {
+  //       // If user try to add an item while not logged in, display error message
+  //       $('.add-todo-item').on("click", () => {
+  //         $('.error-msg1').show()
+  //       })
+  //     }
+  //   },
+  // });
 })
