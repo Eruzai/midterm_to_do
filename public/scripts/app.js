@@ -45,7 +45,7 @@ $(document).ready(function () {
     event.preventDefault();
     highlightBtn(event, 1);
   })
-  
+
   $('.list-items')
   .on("click mouseover", (event) => {
     event.preventDefault();
@@ -79,7 +79,6 @@ $(document).ready(function () {
       });
   })
 
-<<<<<<< HEAD
   $('.list-items')
   .on("dragenter", (event) => {
     event.preventDefault();
@@ -91,8 +90,6 @@ $(document).ready(function () {
     highlightBtn(event, 4);
     fetchCategoryItems(event.target.id);
   })
-=======
->>>>>>> d22bc01 (feat: drag items to add to different list)
 
   $('.add-todo-item').on("click", function(event) {
     event.preventDefault();
