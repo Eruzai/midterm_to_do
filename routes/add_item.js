@@ -10,6 +10,10 @@ router.post('/', (req, res) => {
   let user = req.session.userId;
   let category = 4;
 
+  if (!user) {
+    return res.json({ status: false });
+  }
+
   isBook.findIfBookExists(title)
     .then(data => {
       if (data) {
