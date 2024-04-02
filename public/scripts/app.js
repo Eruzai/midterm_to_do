@@ -76,18 +76,20 @@ $(document).ready(function () {
         fetchCategoryItems(catID);
       });
   })
-
+  
   // the form field text is sent via a post request as an object to add the item to the database. the category the item was added to is then highlighted and shown on the page.
   $('.add-todo-item').on("click", function(event) {
     event.preventDefault();
     const $textObject = $('#title');
     const serialText = $textObject.serialize();
+    $('.wait-msg').show();
     $.post('/additem', serialText)
       .then((data) => {
         const id = data.data[0].category_id;
         const buttonToHighlight = $(`#${id}`);
         fetchCategoryItems(id);
         highlight(buttonToHighlight);
+        $('.wait-msg').hide();
       });
     $('#title').val('');
   })
