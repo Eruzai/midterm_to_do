@@ -39,7 +39,7 @@ $(document).ready(function () {
 
     fetchCategoryItems(categoryId);
     $(event.target).css("background-color", "red"); // Change background color of the clicked element
-};
+  };
 
   $('.fetch-movies').on("click", (event) => {
     event.preventDefault();
@@ -61,7 +61,7 @@ $(document).ready(function () {
     highlightBtn(event, 4);
   })
 
-  $('.add-todo-item').on("click", (event) => {
+  $('.add-todo-item').on("click", function(event) {
     event.preventDefault();
     const $textObject = $(this).find('#title');
     const serialText = $textObject.serialize();
@@ -83,16 +83,24 @@ $(document).ready(function () {
 
         $('.user-btn').each((index, element) => {
           $(element).on('click', (event) => {
+            event.preventDefault();
 
-            // event.preventDefault(); // its broken for now. im not getting logged in because of this preventDefault!!!
-            const userEmail = users[index].email;
-            displayUser(userEmail);
-            $('.user-btn').hide();
+            $.ajax({
+              url: '/login',
+              method: 'post',
+              data: { userId: users[index].id },
+              success: () => {
 
-            const logoutBtn = $('<button type="submit" class="logout-btn"/>')
-            $('.logout').append(logoutBtn)
-            logoutBtn.html('Logout')
+                const userEmail = users[index].email;
+                displayUser(userEmail);
+                $('.user-btn').hide();
 
+                const logoutBtn = $('<button type="submit" class="logout-btn"/>')
+                $('.logout').append(logoutBtn)
+                logoutBtn.html('Logout')
+
+              },
+            })
           });
         });
       }
@@ -101,5 +109,19 @@ $(document).ready(function () {
 
   fetchUsers();
 
+  $('.error-msg1').hide()
+  $('.error-msg2').hide()
 
+  $.ajax({
+    url: '/additem',
+    type: 'POST',
+    success: (res) => {
+      if (!res.status) {
+        // If user try to add an item while not logged in, display error message
+        $('.add-todo-item').on("click", () => {
+          $('.error-msg1').show()
+        })
+      }
+    },
+  });
 })
