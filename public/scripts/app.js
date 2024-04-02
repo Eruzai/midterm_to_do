@@ -8,7 +8,7 @@ $(document).ready(function () {
     const ul = $('<ul></ul>');
 
     $.each(titles, (index, title) => {
-      const li = $('<li></li>').text(title);
+      const li = $('<li draggable="true"></li>').text(title);
       ul.append(li);
     });
 
@@ -41,22 +41,22 @@ $(document).ready(function () {
     $(event.target).css("background-color", "red"); // Change background color of the clicked element
   };
 
-  $('.fetch-movies').on("click", (event) => {
+  $('.fetch-movies').on("click, mouseover", (event) => {
     event.preventDefault();
     highlightBtn(event, 1);
   })
 
-  $('.fetch-books').on("click", (event) => {
+  $('.fetch-books').on("click, mouseover", (event) => {
     event.preventDefault();
     highlightBtn(event, 2);
   })
 
-  $('.fetch-foods').on("click", (event) => {
+  $('.fetch-restaurants').on("click, mouseover", (event) => {
     event.preventDefault();
     highlightBtn(event, 3);
   })
 
-  $('.fetch-products').on("click", (event) => {
+  $('.fetch-products').on("click, mouseover", (event) => {
     event.preventDefault();
     highlightBtn(event, 4);
   })
