@@ -31,52 +31,53 @@ $(document).ready(function () {
     })
   }
 
-  const highlightBtn = (event, categoryId) => {
-    // event.preventDefault();
+  // accepts DOM element and adds 'highlighted' class to it and removes the class from its siblings
+  const highlight = (element) => {
+    $(element).addClass('highlighted');
+    $(element).siblings().removeClass('highlighted');
+  }
 
-    // Remove background color from all buttons
-    $('.list-items').css("background-color", "");
-
-    // fetchCategoryItems(categoryId);
-    $(event.target).css("background-color", "red"); // Change background color of the clicked element
-  };
-
+  // highlights the target button and displays the appropriate list
   $('.list-items').on("click mouseover", (event) => {
     event.preventDefault();
-    const categoryID = event.target.id;
-    highlightBtn(event, categoryID);
+    highlight(event.target);
     fetchCategoryItems(event.target.id);
   })
 
+  // dragging an item over a list button names the list container after the id of the button (used later to update an item in the database), highlights the button, and displays the appropriate list
   $('.list-items')
   .on("dragenter", function(event) {
     event.preventDefault();
     const listID = event.target.id;
     const listContainer = $(this).parents().find('.items-container');
     $(listContainer).attr("name", listID);
-    highlightBtn(event, listID);
+    highlight(event.target);
     fetchCategoryItems(listID);
   })
 
+  // allows items to be dropped in the item list container
   $('.items-container')
   .on("dragover", (event) => {
     event.preventDefault();
   })
 
   $('.items-container')
+  // dragging an item from the list grabs the text content of that item
   .on("dragstart", (event) => {
     const item = event.target.textContent
     event.originalEvent.dataTransfer.setData('text', item);
   })
+  // dropping an item sends a post request to update the item in the database using the data that was being dragged and the category id. the appropriate list is then refreshed to display the change
   .on("drop", function(event) {
     const data = event.originalEvent.dataTransfer.getData('text');
-    const catID = $(this).attr("name");
+    const catID = $(this).attr("name"); // the category id is the name of the list (set when an item is dragged over a list button).
     $.post('/updateitem', {categoryID: catID, title: data})
       .then(() => {
         fetchCategoryItems(catID);
       });
   })
 
+  // the form field text is sent via a post request as an object to add the item to the database. the category the item was added to is then highlighted and shown on the page.
   $('.add-todo-item').on("click", function(event) {
     event.preventDefault();
     const $textObject = $('#title');
@@ -84,8 +85,9 @@ $(document).ready(function () {
     $.post('/additem', serialText)
       .then((data) => {
         const id = data.data[0].category_id;
+        const buttonToHighlight = $(`#${id}`);
         fetchCategoryItems(id);
-        highlightBtn(event, id);
+        highlight(buttonToHighlight);
       });
     $('#title').val('');
   })
