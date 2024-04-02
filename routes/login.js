@@ -6,7 +6,7 @@ router.get('/', (req, res) => {
   const userID = req.body.userId;
 
   if (userID) {
-    res.render('/')
+    res.redirect('/')
   }
 
   res.render('login')
