@@ -35,15 +35,17 @@ $(document).ready(function () {
     event.preventDefault();
 
     // Remove background color from all buttons
-    $('.fetch-movies, .fetch-books, .fetch-foods, .fetch-products').css("background-color", "");
+    $('.list-items').css("background-color", "");
 
     fetchCategoryItems(categoryId);
     $(event.target).css("background-color", "red"); // Change background color of the clicked element
   };
 
-  $('.fetch-movies').on("click, mouseover", (event) => {
+  $('.list-items').on("click mouseover", (event) => {
     event.preventDefault();
-    highlightBtn(event, 1);
+    const categoryID = event.target.id
+    highlightBtn(event, categoryID);
+    fetchCategoryItems(event.target.id);
   })
 
   $('.list-items')
