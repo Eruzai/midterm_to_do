@@ -41,6 +41,7 @@ $(document).ready(function () {
       },
       error: (res) => {
         displayErrorMessage(false)
+        displayErrorMessage(false)
       }
     })
   }
@@ -108,6 +109,8 @@ $(document).ready(function () {
       .catch(res => {
         displayErrorMessage(true)
       })
+        displayErrorMessage(true)
+      })
     $('#title').val('');
   })
 
@@ -144,6 +147,5 @@ $(document).ready(function () {
       }
     })
   }
-
   fetchUsers();
-})
+
