@@ -57,11 +57,11 @@ $(document).ready(function() {
 
   $('.list-items').on("click mouseover", (event) => {
     event.preventDefault();
-    const categoryID = event.target.id;
-    highlightBtn(event, categoryID);
+    highlight(event.target);
     fetchCategoryItems(event.target.id);
   });
 
+  // dragging an item over a list button names the list container after the id of the button (used later to update an item in the database), highlights the button, and displays the appropriate list
   $('.list-items')
     .on("dragenter", function(event) {
       event.preventDefault();
@@ -72,6 +72,7 @@ $(document).ready(function() {
       fetchCategoryItems(listID);
     });
 
+  // allows items to be dropped in the item list container
   $('.items-container')
     .on("dragover", (event) => {
       event.preventDefault();
@@ -101,8 +102,11 @@ $(document).ready(function() {
       .then((data) => {
 
         const id = data.data[0].category_id;
+        const buttonToHighlight = $(`#${id}`);
 
         fetchCategoryItems(id);
+        highlight(buttonToHighlight);
+        $('.wait-msg').hide();
         highlightBtn(event, id);
       })
       .catch(res => {
