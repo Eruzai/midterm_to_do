@@ -14,9 +14,9 @@ $(document).ready(function () {
         hidden = null;
         shown = "hidden";
       };
-      const li = $(`<div name=${ids[index]} class="list-entry"><h3 name="not-done" class=${shown}>🟥</h3><h3 name="done" class=${hidden}>✅</h3>
+      const li = $(`<div name=${ids[index]} class="list-entry"><i name="not-done" class="${shown} fa-regular fa-square fa-xl"></i><i name="done" class="${hidden} fa-regular fa-square-check fa-xl"></i>
       <li class="item" draggable="true">${title}</li>
-      <button type="button" name="delete-button">🗑️</button></div>`);
+      <button type="button" name="delete-button"><i class="fa-sharp fa-solid fa-trash fa-xl"></i></button></div>`);
       ul.append(li);
     });
 
