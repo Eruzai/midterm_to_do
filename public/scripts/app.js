@@ -83,14 +83,14 @@ $(document).ready(function () {
 
   // dragging an item over a list button names the list container after the id of the button (used later to update an item in the database), highlights the button, and displays the appropriate list
   $('.list-items')
-  .on("dragenter", function(event) {
-    event.preventDefault();
-    const listID = event.target.id;
-    const listContainer = $(this).parents().find('.items-container');
-    $(listContainer).attr("name", listID);
-    highlightBtn(event, listID);
-    fetchCategoryItems(listID);
-  })
+    .on("dragenter", function(event) {
+      event.preventDefault();
+      const listID = event.target.id;
+      const listContainer = $(this).parents().find('.items-container');
+      $(listContainer).attr("name", listID);
+      highlight(event.target);
+      fetchCategoryItems(listID);
+    });
 
   $('.items-container')
   .on("dragover", (event) => {
@@ -120,13 +120,16 @@ $(document).ready(function () {
     const $textObject = $('#title');
     const serialText = $textObject.serialize();
 
+    $('.wait-msg').show();
     $.post('/additem', serialText)
       .then((data) => {
 
         const id = data.data[0].category_id;
+        const buttonToHighlight = $(`#${id}`);
 
         fetchCategoryItems(id);
-        highlightBtn(event, id);
+        highlight(buttonToHighlight);
+        $('.wait-msg').hide();
       })
       .catch(res => {
         displayErrorMessage(true)
