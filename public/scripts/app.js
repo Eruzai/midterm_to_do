@@ -58,6 +58,11 @@ $(document).ready(function() {
     $(event.target).css("background-color", "red"); // Change background color of the clicked element
   };
 
+  const highlight = (element) => {
+    $(element).addClass('highlighted');
+    $(element).siblings().removeClass('highlighted');
+  };
+
   $('.list-items').on("click mouseover", (event) => {
     event.preventDefault();
     highlight(event.target);
