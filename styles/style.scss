@@ -40,6 +40,10 @@ body {
   flex-direction: column;
 }
 
+.list-entry {
+  display: flex;
+}
+
 .highlighted {
   background-color: red;
 }
