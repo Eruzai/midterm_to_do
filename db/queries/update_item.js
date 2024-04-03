@@ -1,8 +1,8 @@
 const db = require('../connection');
 
-const updateItemCategory = (categoryID, title) => {
+const updateItemCategory = (categoryID, itemID) => {
   return db
-    .query(`UPDATE items SET category_id = $1 WHERE title = $2 RETURNING *;`, [categoryID, title])
+    .query(`UPDATE items SET category_id = $1 WHERE id = $2 RETURNING *;`, [categoryID, itemID])
     .then((result) => {
       if (result.rows.length > 0) {
         return result.rows;
