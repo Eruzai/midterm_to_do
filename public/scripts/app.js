@@ -1,5 +1,5 @@
 // Client facing scripts here
-$(document).ready(function () {
+$(document).ready(function() {
 
   const displayItems = (titles) => {
     const titleList = $('.items-container');
@@ -13,23 +13,37 @@ $(document).ready(function () {
     });
 
     titleList.append(ul);
-  }
+  };
 
   const displayUser = (email) => {
-    const userContainer = $('.user-login')
+    const userContainer = $('.user-login');
 
-    userContainer.text(`Logged in as: ${email}`)
-  }
+    userContainer.text(`Logged in as: ${email}`);
+  };
 
+  $('.error-msg1').hide();
+  $('.error-msg2').hide();
+  const displayErrorMessage = (showMessage1) => {
+    if (showMessage1) {
+      $('.error-msg2').hide();
+      $('.error-msg1').show().css('background-color', 'red');
+    } else {
+      $('.error-msg1').hide();
+      $('.error-msg2').show().css('background-color', 'red');
+    }
+  };
   const fetchCategoryItems = (id) => {
     $.ajax({
       url: `/api/categoryitems?categoryId=${id}`,
       method: 'GET',
       success: (res) => {
         displayItems(res.titles);
+      },
+      error: (res) => {
+        displayErrorMessage(false);
       }
-    })
-  }
+    });
+  };
 
   const highlightBtn = (event, categoryId) => {
     // event.preventDefault();
@@ -46,49 +60,56 @@ $(document).ready(function () {
     const categoryID = event.target.id;
     highlightBtn(event, categoryID);
     fetchCategoryItems(event.target.id);
-  })
+  });
 
   $('.list-items')
-  .on("dragenter", function(event) {
-    event.preventDefault();
-    const listID = event.target.id;
-    const listContainer = $(this).parents().find('.items-container');
-    $(listContainer).attr("name", listID);
-    highlightBtn(event, listID);
-    fetchCategoryItems(listID);
-  })
+    .on("dragenter", function(event) {
+      event.preventDefault();
+      const listID = event.target.id;
+      const listContainer = $(this).parents().find('.items-container');
+      $(listContainer).attr("name", listID);
+      highlightBtn(event, listID);
+      fetchCategoryItems(listID);
+    });
 
   $('.items-container')
-  .on("dragover", (event) => {
-    event.preventDefault();
-  })
+    .on("dragover", (event) => {
+      event.preventDefault();
+    });
 
   $('.items-container')
-  .on("dragstart", (event) => {
-    const item = event.target.textContent
-    event.originalEvent.dataTransfer.setData('text', item);
-  })
-  .on("drop", function(event) {
-    const data = event.originalEvent.dataTransfer.getData('text');
-    const catID = $(this).attr("name");
-    $.post('/updateitem', {categoryID: catID, title: data})
-      .then(() => {
-        fetchCategoryItems(catID);
-      });
-  })
+    .on("dragstart", (event) => {
+      const item = event.target.textContent;
+      event.originalEvent.dataTransfer.setData('text', item);
+    })
+    .on("drop", function(event) {
+      const data = event.originalEvent.dataTransfer.getData('text');
+      const catID = $(this).attr("name");
+      $.post('/updateitem', { categoryID: catID, title: data })
+        .then(() => {
+          fetchCategoryItems(catID);
+        });
+    });
 
   $('.add-todo-item').on("click", function(event) {
     event.preventDefault();
+
     const $textObject = $('#title');
     const serialText = $textObject.serialize();
+
     $.post('/additem', serialText)
       .then((data) => {
+
         const id = data.data[0].category_id;
+
         fetchCategoryItems(id);
         highlightBtn(event, id);
+      })
+      .catch(res => {
+        displayErrorMessage(true);
       });
     $('#title').val('');
-  })
+  });
 
   const fetchUsers = () => {
     $.ajax({
@@ -112,33 +133,18 @@ $(document).ready(function () {
                 displayUser(userEmail);
                 $('.user-btn').hide();
 
-                const logoutBtn = $('<button type="submit" class="logout-btn"/>')
-                $('.logout').append(logoutBtn)
-                logoutBtn.html('Logout')
+                const logoutBtn = $('<button type="submit" class="logout-btn"/>');
+                $('.logout').append(logoutBtn);
+                logoutBtn.html('Logout');
 
               },
-            })
+            });
           });
         });
       }
-    })
-  }
+    });
+  };
 
   fetchUsers();
 
-  $('.error-msg1').hide()
-  $('.error-msg2').hide()
-
-  // $.ajax({
-  //   url: '/additem',
-  //   type: 'POST',
-  //   success: (res) => {
-  //     if (!res.status) {
-  //       // If user try to add an item while not logged in, display error message
-  //       $('.add-todo-item').on("click", () => {
-  //         $('.error-msg1').show()
-  //       })
-  //     }
-  //   },
-  // });
-})
+});
