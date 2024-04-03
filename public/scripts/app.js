@@ -143,7 +143,9 @@ $(document).ready(function () {
               method: 'post',
               data: { userId: users[index].id },
               success: () => {
-
+                $('.error-msg1').hide();
+                $('.error-msg2').hide();
+                
                 const userEmail = users[index].email;
                 displayUser(userEmail);
                 $('.user-btn').hide();
