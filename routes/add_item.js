@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
   let category = 4;
 
   if (!user) {
-    return res.json({ status: false });
+    return res.status(403).json({ "status": false })
   }
 
   isBook.findIfBookExists(title)
