@@ -1,18 +1,75 @@
 body {
+  background-color: #00ccb1;
+  background-image: url("https://www.transparenttextures.com/patterns/cartographer.png");
+}
+
+main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh;
 
-  background: rgb(163, 208, 219);
-  background: linear-gradient(
-    227deg,
-    rgba(163, 208, 219, 1) 0%,
-    rgba(163, 176, 219, 1) 20%,
-    rgba(163, 173, 219, 1) 34%,
-    rgba(163, 219, 208, 1) 59%,
-    rgba(163, 208, 219, 1) 74%,
-    rgba(163, 208, 219, 1) 100%
-  );
+
+  .add-item {
+    padding: 10px;
+  }
+
+  .categories-container {
+    display: flex;
+
+    button {
+      margin: 0px 15px;
+    }
+  }
+
+
+  .items-container {
+    display: flex;
+    flex-direction: column;
+
+    border: 3px solid black;
+    background-color: #ac7a17;
+    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+    padding: 15px;
+    margin-top: 15px;
+
+    ul {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    i:hover {
+      cursor: pointer;
+    }
+
+    li {
+      margin: .5em;
+    }
+
+    li:hover {
+      cursor: grab;
+    }
+
+    button {
+      padding: 0px;
+      border: 0px;
+      background: none;
+      :hover {
+        cursor: pointer;
+      }
+    }
+
+    .list-entry {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}
+
+.highlighted {
+  background-color: yellow;
+}
+
+.hidden {
+  display: none;
 }
