@@ -1,16 +1,22 @@
 // Client facing scripts here
 $(document).ready(function () {
 
-  const displayItems = (titles, ids) => {
+  const displayItems = (titles, ids, completed) => {
     const titleList = $('.items-container');
     titleList.empty();
 
-    const ul = $('<ul></ul>');
+    const ul = $('<ul style="list-style-type:none;"></ul>');
 
     $.each(titles, (index, title) => {
-      const li = $('<li class="item" name="" draggable="true"></li>').text(title);
-      const button = $('<button type="button" class="delete-button">delete</button>').attr("name", ids[index]); // note "delete" is sliced off during data drag
-      li.append(button);
+      let hidden = "hidden";
+      let shown = null;
+      if(completed[index] === true) {
+        hidden = null;
+        shown = "hidden";
+      };
+      const li = $(`<div name=${ids[index]} class="list-entry"><h3 name="not-done" class=${shown}>🟥</h3><h3 name="done" class=${hidden}>✅</h3>
+      <li class="item" draggable="true">${title}</li>
+      <button type="button" name="delete-button">🗑️</button></div>`);
       ul.append(li);
     });
 
@@ -38,11 +44,11 @@ $(document).ready(function () {
       url: `/api/categoryitems?categoryId=${id}`,
       method: 'GET',
       success: (res) => {
-        displayItems(res.titles, res.ids);
+        displayItems(res.titles, res.ids, res.completed);
       },
       error: (res) => {
         displayErrorMessage(false);
-        displayItems(res.titles, res.ids);
+        displayItems(res.titles, res.ids, res.completed);
       }
     })
   }
@@ -62,12 +68,33 @@ $(document).ready(function () {
   // updates item as deleted = true, doesn't actually delete item from database.
   $('.items-container').on("click", function(event) {
     event.preventDefault();
-    const id = $(event.target).attr("name");
-    $.post('/deleteitem', { id })
-      .then((data) => {
-        const id = data[0].category_id;
-        fetchCategoryItems(id);
-      });
+
+    const targetName = $(event.target).attr("name");
+    const id = $(event.target).parents().attr("name");
+
+    if(targetName === "delete-button") {
+      $.post('/deleteitem', { id })
+        .then((data) => {
+          const id = data[0].category_id;
+          fetchCategoryItems(id);
+        });
+    }
+
+    if(targetName === "not-done") {
+      $.post('/markdone', { id })
+        .then((data) => {
+          const id = data[0].category_id;
+          fetchCategoryItems(id);
+        })
+    }
+
+    if(targetName === "done") {
+      $.post('/marktodo', { id })
+        .then((data) => {
+          const id = data[0].category_id;
+          fetchCategoryItems(id);
+        })
+    }
   })
 
   // dragging an item over a list button names the list container after the id of the button (used later to update an item in the database), highlights the button, and displays the appropriate list
@@ -89,7 +116,7 @@ $(document).ready(function () {
   $('.items-container')
   // dragging an item from the list grabs the text content of that item
   .on("dragstart", (event) => {
-    const item = event.target.textContent.slice(0, -6)
+    const item = event.target.textContent;
     event.originalEvent.dataTransfer.setData('text/plain', item);
   })
   // dropping an item sends a post request to update the item in the database using the data that was being dragged and the category id. the appropriate list is then refreshed to display the change
@@ -145,7 +172,7 @@ $(document).ready(function () {
               success: () => {
                 $('.error-msg1').hide();
                 $('.error-msg2').hide();
-                
+
                 const userEmail = users[index].email;
                 displayUser(userEmail);
                 $('.user-btn').hide();
