@@ -1,8 +1,8 @@
 const db = require('../connection');
 
-const getCategoryList = (userID, categoryID) => {
+const setAsDeleted = (itemID) => {
   return db
-    .query(`SELECT * FROM items WHERE user_id = $1 AND category_id = $2 AND is_deleted = false`, [userID, categoryID])
+    .query(`UPDATE items SET is_deleted = true WHERE id = $1 RETURNING *;`, [itemID])
     .then((result) => {
       if (result.rows.length > 0) {
         return result.rows;
@@ -15,4 +15,4 @@ const getCategoryList = (userID, categoryID) => {
     });
 };
 
-module.exports = { getCategoryList };
+module.exports = { setAsDeleted };
