@@ -44,8 +44,10 @@ const addItemRoute = require('./routes/add_item');
 const logInRoute = require('./routes/login');
 const logOutRoute = require('./routes/logout');
 const userApiRoutes = require('./routes/users-api');
-const updateItemRoute = require('./routes/update_list')
-const deleteItemRoute = require('./routes/delete_item')
+const updateItemRoute = require('./routes/update_list');
+const deleteItemRoute = require('./routes/delete_item');
+const markDoneRoute = require('./routes/mark_done');
+const markToDoRoute = require('./routes/mark_to_do');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -58,6 +60,8 @@ app.use('/logout', logOutRoute);
 app.use('/api/users', userApiRoutes);
 app.use('/updateitem', updateItemRoute);
 app.use('/deleteitem', deleteItemRoute);
+app.use('/markdone', markDoneRoute);
+app.use('/marktodo', markToDoRoute);
 
 // Note: mount other resources here, using the same pattern above
 
