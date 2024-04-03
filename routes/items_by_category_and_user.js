@@ -14,7 +14,9 @@ router.get('/', (req, res) => {
     .then(data => {
       const titles = data.map(item => item.title);
       const ids = data.map(item => item.id);
-      res.json( {titles, ids} );
+      const completed = data.map(item => item.is_completed);
+      console.log(completed);
+      res.json( {titles, ids, completed} );
     })
     .catch(err => {
       res
