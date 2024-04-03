@@ -19,7 +19,6 @@ $(document).ready(function () {
 
   const displayUser = (email) => {
     const userContainer = $('.user-login')
-
     userContainer.text(`Logged in as: ${email}`)
   }
 
@@ -48,16 +47,6 @@ $(document).ready(function () {
     })
   }
 
-  const highlightBtn = (event, categoryId) => {
-    // event.preventDefault();
-
-    // Remove background color from all buttons
-    $('.list-items').css("background-color", "");
-
-    // fetchCategoryItems(categoryId);
-    $(event.target).css("background-color", "red"); // Change background color of the clicked element
-  };
-
   const highlight = (element) => {
     $(element).addClass('highlighted');
     $(element).siblings().removeClass('highlighted');
@@ -66,7 +55,7 @@ $(document).ready(function () {
   $('.list-items').on("click mouseover", (event) => {
     event.preventDefault();
     const categoryID = event.target.id;
-    highlightBtn(event, categoryID);
+    highlight(event.target);
     fetchCategoryItems(event.target.id);
   })
 
@@ -132,9 +121,7 @@ $(document).ready(function () {
         $('.wait-msg').hide();
       })
       .catch(res => {
-        displayErrorMessage(true)
-      })
-        displayErrorMessage(true)
+        displayErrorMessage(true);
       })
     $('#title').val('');
   })
@@ -173,4 +160,4 @@ $(document).ready(function () {
     })
   }
   fetchUsers();
-
+})
