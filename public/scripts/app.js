@@ -65,21 +65,26 @@ $(document).ready(function () {
     fetchCategoryItems(event.target.id);
   })
 
-  // updates item as deleted = true, doesn't actually delete item from database.
   $('.items-container').on("click", function(event) {
     event.preventDefault();
 
     const targetName = $(event.target).attr("name");
     const id = $(event.target).parents().attr("name");
 
+    // updates item is_deleted = true, doesn't actually delete item from database. asks for confirmation.
     if(targetName === "delete-button") {
-      $.post('/deleteitem', { id })
-        .then((data) => {
-          const id = data[0].category_id;
-          fetchCategoryItems(id);
-        });
+      const item = $(event.target).siblings('.item')[0].textContent;
+      const answer = confirm(`Delete ${item} from your list?`);
+      if(answer) {
+        $.post('/deleteitem', { id })
+          .then((data) => {
+            const id = data[0].category_id;
+            fetchCategoryItems(id);
+          });
+      }
     }
 
+    // updates item is_completed = true
     if(targetName === "not-done") {
       $.post('/markdone', { id })
         .then((data) => {
@@ -88,6 +93,7 @@ $(document).ready(function () {
         })
     }
 
+    //updates item is_completed = false
     if(targetName === "done") {
       $.post('/marktodo', { id })
         .then((data) => {
