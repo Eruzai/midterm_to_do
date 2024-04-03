@@ -1,15 +1,13 @@
 const express = require('express');
 const router  = express.Router();
-const updateList = require('../db/queries/update_item');
+const deleteItem = require('../db/queries/delete_item');
 
 router.post('/', (req, res) => {
-  const categoryID = req.body.categoryID;
-  const title = req.body.title;
+  const itemID = req.body.id;
 
-  updateList.updateItemCategory(categoryID, title)
+  deleteItem.setAsDeleted(itemID)
     .then(data => {
-      const items = data.rows;
-      res.json({ items });
+      res.json(data);
     })
     .catch(err => {
       res

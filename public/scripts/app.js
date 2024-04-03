@@ -1,14 +1,16 @@
 // Client facing scripts here
 $(document).ready(function () {
 
-  const displayItems = (titles) => {
+  const displayItems = (titles, ids) => {
     const titleList = $('.items-container');
     titleList.empty();
 
     const ul = $('<ul></ul>');
 
     $.each(titles, (index, title) => {
-      const li = $('<li class="item" draggable="true"></li>').text(title);
+      const li = $('<li class="item" name="" draggable="true"></li>').text(title);
+      const button = $('<button type="button" class="delete-button">delete</button>').attr("name", ids[index]); // note "delete" is sliced off during data drag
+      li.append(button);
       ul.append(li);
     });
 
@@ -37,11 +39,11 @@ $(document).ready(function () {
       url: `/api/categoryitems?categoryId=${id}`,
       method: 'GET',
       success: (res) => {
-        displayItems(res.titles);
+        displayItems(res.titles, res.ids);
       },
       error: (res) => {
-        displayErrorMessage(false)
-        displayErrorMessage(false)
+        displayErrorMessage(false);
+        displayItems(res.titles, res.ids);
       }
     })
   }
@@ -63,6 +65,18 @@ $(document).ready(function () {
     fetchCategoryItems(event.target.id);
   })
 
+  // updates item as deleted = true, doesn't actually delete item from database.
+  $('.items-container').on("click", function(event) {
+    event.preventDefault();
+    const id = $(event.target).attr("name");
+    $.post('/deleteitem', { id })
+      .then((data) => {
+        const id = data[0].category_id;
+        fetchCategoryItems(id);
+      });
+  })
+
+  // dragging an item over a list button names the list container after the id of the button (used later to update an item in the database), highlights the button, and displays the appropriate list
   $('.list-items')
   .on("dragenter", function(event) {
     event.preventDefault();
@@ -79,19 +93,22 @@ $(document).ready(function () {
   })
 
   $('.items-container')
+  // dragging an item from the list grabs the text content of that item
   .on("dragstart", (event) => {
-    const item = event.target.textContent
-    event.originalEvent.dataTransfer.setData('text', item);
+    const item = event.target.textContent.slice(0, -6)
+    event.originalEvent.dataTransfer.setData('text/plain', item);
   })
+  // dropping an item sends a post request to update the item in the database using the data that was being dragged and the category id. the appropriate list is then refreshed to display the change
   .on("drop", function(event) {
     const data = event.originalEvent.dataTransfer.getData('text');
-    const catID = $(this).attr("name");
+    const catID = $(this).attr("name"); // the category id is the name of the list (set when an item is dragged over a list button).
     $.post('/updateitem', {categoryID: catID, title: data})
       .then(() => {
         fetchCategoryItems(catID);
       });
   })
 
+  // the form field text is sent via a post request as an object to add the item to the database. the category the item was added to is then highlighted and shown on the page.
   $('.add-todo-item').on("click", function(event) {
     event.preventDefault();
 
