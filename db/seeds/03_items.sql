@@ -28,16 +28,16 @@ INSERT INTO items (title, user_id, category_id) VALUES ('To Kill a Mockingbird',
 INSERT INTO items (title, user_id, category_id) VALUES ('Atomic Habits', 3, 2);
 
 --TO eat--
-INSERT INTO items (title, user_id, category_id) VALUES ('Lobster', 1, 3);
-INSERT INTO items (title, user_id, category_id) VALUES ('Apple Pie', 1, 3);
-INSERT INTO items (title, user_id, category_id) VALUES ('Caviar', 1, 3);
-INSERT INTO items (title, user_id, category_id) VALUES ('Oyster', 1, 3);
+INSERT INTO items (title, user_id, category_id) VALUES ('McDonalds', 1, 3);
+INSERT INTO items (title, user_id, category_id) VALUES ('Red Robbins', 1, 3);
+INSERT INTO items (title, user_id, category_id) VALUES ('Ramen Arashi', 1, 3);
+INSERT INTO items (title, user_id, category_id) VALUES ('Bin 4', 1, 3);
 
-INSERT INTO items (title, user_id, category_id) VALUES ('Steak', 2, 3);
-INSERT INTO items (title, user_id, category_id) VALUES ('French Croissant', 2, 3);
+INSERT INTO items (title, user_id, category_id) VALUES ('Burger King', 2, 3);
+INSERT INTO items (title, user_id, category_id) VALUES ('Tim Hortons', 2, 3);
 
-INSERT INTO items (title, user_id, category_id) VALUES ('Fish', 3, 3);
-INSERT INTO items (title, user_id, category_id) VALUES ('Avocado Toast', 3, 3);
+INSERT INTO items (title, user_id, category_id) VALUES ('Boston Pizza', 3, 3);
+INSERT INTO items (title, user_id, category_id) VALUES ('Siam Thai', 3, 3);
 
 --TO buy--
 INSERT INTO items (title, user_id, category_id) VALUES ('Playing Cards', 1, 4);
