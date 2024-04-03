@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   const category = req.query.categoryId
 
   if (!user) {
-   console.log("yo! u need to log in !!!")
+   return res.status(403).json({ "status": false })
   }
   usersItemsByList.getCategoryList(user, category)
     .then(data => {
