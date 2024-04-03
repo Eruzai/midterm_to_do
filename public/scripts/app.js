@@ -122,17 +122,18 @@ $(document).ready(function () {
   $('.items-container')
   // dragging an item from the list grabs the text content of that item
   .on("dragstart", (event) => {
-    const item = event.target.textContent;
+    const item = $(event.target).parent().attr("name");
     event.originalEvent.dataTransfer.setData('text/plain', item);
   })
   // dropping an item sends a post request to update the item in the database using the data that was being dragged and the category id. the appropriate list is then refreshed to display the change
   .on("drop", function(event) {
-    const data = event.originalEvent.dataTransfer.getData('text');
-    const catID = $(this).attr("name"); // the category id is the name of the list (set when an item is dragged over a list button).
-    $.post('/updateitem', {categoryID: catID, title: data})
-      .then(() => {
-        fetchCategoryItems(catID);
-      });
+    const id = event.originalEvent.dataTransfer.getData('text');
+    const categoryID = $(this).attr("name"); // the category id is the name of the list (set when an item is dragged over a list button).
+    $.post('/updateitem', { categoryID, id })
+      .then((data) => {
+        const id = data[0].category_id;
+        fetchCategoryItems(id);
+      })
   })
 
   // the form field text is sent via a post request as an object to add the item to the database. the category the item was added to is then highlighted and shown on the page.
