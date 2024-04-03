@@ -1,6 +1,5 @@
 const express = require('express');
 const router  = express.Router();
-const db = require('../db/connection');
 const updateList = require('../db/queries/update_item');
 
 router.post('/', (req, res) => {
