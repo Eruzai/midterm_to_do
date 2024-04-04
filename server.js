@@ -46,6 +46,7 @@ const logOutRoute = require('./routes/logout');
 const userApiRoutes = require('./routes/users-api');
 const updateItemRoute = require('./routes/update_list')
 const deleteItemRoute = require('./routes/delete_item')
+const updateUserRoute = require('./routes/update_user')
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -58,6 +59,7 @@ app.use('/logout', logOutRoute);
 app.use('/api/users', userApiRoutes);
 app.use('/updateitem', updateItemRoute);
 app.use('/deleteitem', deleteItemRoute);
+app.use('/updateuser', updateUserRoute);
 
 // Note: mount other resources here, using the same pattern above
 
