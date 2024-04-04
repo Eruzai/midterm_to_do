@@ -22,26 +22,28 @@
 
   <header class="header">
     <div>SMART TODO LIST</div>
-    <h3 class="user-login"></h3>
-    <form action="/logout" method="post" class="logout"></form>
+    <div class="login-stuff">
+      <h3 class="user-login"></h3>
+      <form action="/logout" method="post" class="logout"></form>
 
-    <!-- LOGIN SECTION -->
-    <section class="login">
-      <form action="/login" method="post">
-        <input type="hidden" name="userId" value="1">
-        <button class="user-btn" type="submit">USER 1</button>
-      </form>
+      <!-- LOGIN SECTION -->
+      <section class="login">
+        <form action="/login" method="post">
+          <input type="hidden" name="userId" value="1">
+          <button class="user-btn" type="submit">USER 1</button>
+        </form>
 
-      <form action="/login" method="post">
-        <input type="hidden" name="userId" value="2">
-        <button class="user-btn" type="submit">USER 2</button>
-      </form>
+        <form action="/login" method="post">
+          <input type="hidden" name="userId" value="2">
+          <button class="user-btn" type="submit">USER 2</button>
+        </form>
 
-      <form action="/login" method="post">
-        <input type="hidden" name="userId" value="3">
-        <button class="user-btn" type="submit">USER 3</button>
-      </form>
-    </section>
+        <form action="/login" method="post">
+          <input type="hidden" name="userId" value="3">
+          <button class="user-btn" type="submit">USER 3</button>
+        </form>
+      </section>
+    </div>
   </header>
 
   <main class="container">

@@ -1,17 +1,30 @@
-.header {
+header {
   display: flex;
   padding: 15px;
   justify-content: space-between;
-}
 
-.login {
-  display: flex;
-  padding: 10px;
-}
-
-.user-btn {
-  margin-right: 5px;
-  :hover {
-    cursor: pointer;
+  .login {
+    display: flex;
   }
+
+  .login-stuff {
+    display: flex;
+
+    .user-login {
+      margin: 0px 1em;
+    }
+
+    .logout-btn:hover {
+      cursor: pointer;
+    }
+
+    .user-btn {
+      margin: 0px .5em;
+    }
+
+    .user-btn:hover {
+      cursor: pointer;
+    }
+  }
+
 }
