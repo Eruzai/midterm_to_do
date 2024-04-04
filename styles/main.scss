@@ -120,12 +120,12 @@ main {
     padding: 16px;
     margin: 10px;
   }
+}
 
-  .info {
-    @include boxTheme($color: grey);
-    padding: 16px;
-    margin: 10px;
-  }
+.info {
+  @include boxTheme($color: grey);
+  padding: 16px;
+  margin: 10px;
 }
 
 .highlighted {
