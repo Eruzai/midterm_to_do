@@ -13,7 +13,15 @@
 
   <header class="header">
     <div>SMART TODO LIST</div>
-    <h3 class="user-login"></h3>
+    <section class="user">
+      <h3 class="user-info"></h3>
+      <button class="edit-profile">Edit Email</button>
+      <form action="/updateuser" method="post" class="update-profile">
+        <label for="email"></label>
+        <input type="email" name="email" id="email">
+        <button>Confirm</button>
+      </form>
+    </section>
     <form action="/logout" method="post" class="logout">
 
     </form>
@@ -21,22 +29,7 @@
 
   <main class="container">
     <!-- LOGIN SECTION -->
-    <section class="login">
-      <form action="/login" method="post">
-        <input type="hidden" name="userId" value="1">
-        <button class="user-btn" type="submit">USER 1</button>
-      </form>
-
-      <form action="/login" method="post">
-        <input type="hidden" name="userId" value="2">
-        <button class="user-btn" type="submit">USER 2</button>
-      </form>
-
-      <form action="/login" method="post">
-        <input type="hidden" name="userId" value="3">
-        <button class="user-btn" type="submit">USER 3</button>
-      </form>
-    </section>
+    <section class="login"></section>
 
     <!-- ADD ITEM SECTION -->
     <section class="add-item">
