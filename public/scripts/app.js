@@ -59,7 +59,7 @@ $(document).ready(function () {
   };
 
   // lists the items in specified list
-  $('.list-items').on("click mouseover", (event) => {
+  $('.list-items').on("click", (event) => {
     event.preventDefault();
     const categoryID = event.target.id;
     highlight(event.target);
