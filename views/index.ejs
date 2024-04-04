@@ -25,27 +25,32 @@
 
   <header class="header">
     <h1 class="logo">SMART TODO LIST</h1>
-    <div class="login-stuff">
     <section class="user">
-      <h3 class="user-info"></h3>
-      <button class="edit-profile">Edit Email</button>
-      <form action="/updateuser" method="post" class="update-profile">
-        <label for="email"></label>
-        <input type="email" name="email" id="email">
-        <button>Confirm</button>
-      </form>
+      <div class="logged-in-display">
+        <div class="email-and-logout">
+          <h3 class="user-info"></h3>
+          <form action="/logout" method="post" class="logout"></form>
+        </div>
+        <div class="edit-and-form">
+          <button class="edit-profile">Edit Email</button>
+          <form action="/updateuser" method="post" class="update-profile">
+            <label for="email"></label>
+            <input type="email" name="email" id="email">
+            <button>Confirm</button>
+          </form>
+        </div>
+      </div>
+      <!-- LOGIN SECTION -->
+      <section class="login"></section>
     </section>
-    <form action="/logout" method="post" class="logout"></form>
   </header>
 
   <main class="container">
-    <!-- LOGIN SECTION -->
-    <section class="login"></section>
 
     <!-- ADD ITEM SECTION -->
     <section class="add-item">
       <form action="/additem" method="POST">
-        <label for="title">Add TODO items here</label>
+        <label for="title">Submit TODO items here:</label>
         <input type="text" id="title" name="title">
         <button type="submit" class="add-todo-item">Submit</button>
       </form>
@@ -53,10 +58,13 @@
 
     <!-- CATEGORIES SECTION -->
     <section class="categories-container">
-      <button type="submit" id="1" class="fetch-movies list-items">To watch</button>
-      <button type="submit" id="2" class="fetch-books list-items">To read</button>
-      <button type="submit" id="3" class="fetch-restaurants list-items">To eat</button>
-      <button type="submit" id="4" class="fetch-products list-items">To buy</button>
+      <h3>If an item is miscategorized you can drag it into a different list!</h3>
+      <div>
+        <button type="submit" id="1" class="fetch-movies list-items">To watch</button>
+        <button type="submit" id="2" class="fetch-books list-items">To read</button>
+        <button type="submit" id="3" class="fetch-restaurants list-items">To eat</button>
+        <button type="submit" id="4" class="fetch-products list-items">To buy</button>
+      </div>
     </section>
 
     <section class="messages">
