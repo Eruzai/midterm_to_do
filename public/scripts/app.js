@@ -24,7 +24,7 @@ $(document).ready(function () {
   }
 
   const displayUser = (email) => {
-    const userContainer = $('.user-login')
+    const userContainer = $('.user-info')
     userContainer.text(`Logged in as: ${email}`)
   }
 
@@ -108,9 +108,9 @@ $(document).ready(function () {
 
   // allows dropping into container
   $('.items-container')
-  .on("dragover", (event) => {
-    event.preventDefault();
-  })
+    .on("dragover", (event) => {
+      event.preventDefault();
+    })
 
   $('.items-container')
   // dragging an item from the list grabs the text content of that item
@@ -135,7 +135,7 @@ $(document).ready(function () {
   })
 
   // the form field text is sent via a post request as an object to add the item to the database. the category the item was added to is then highlighted and shown on the page.
-  $('.add-todo-item').on("click", function(event) {
+  $('.add-todo-item').on("click", function (event) {
     event.preventDefault();
 
     const $textObject = $('#title');
@@ -159,6 +159,32 @@ $(document).ready(function () {
     $('#title').val('');
   })
 
+  $('.update-profile').hide()
+  $('.edit-profile').hide()
+  const updateEmail = (email) => {
+    $.ajax({
+      url: "/updateuser",
+      method: "post",
+      data: { email },
+      success: (res) => {
+        displayUser(res.user.email);
+      }
+    })
+  }
+
+  $('.update-profile').on('submit', (event) => {
+    event.preventDefault();
+
+    const newEmail = $('#email').val();
+
+    if (!newEmail) {
+      throw new Error;
+    }
+
+    updateEmail(newEmail);
+    $('#email').val('');
+  })
+
   const fetchUsers = () => {
     $.ajax({
       url: '/api/users',
@@ -167,30 +193,45 @@ $(document).ready(function () {
 
         const users = res.users;
 
-        $('.user-btn').each((index, element) => {
-          $(element).on('click', (event) => {
-            event.preventDefault();
+        users.forEach(user => {
+          const $user = $(`
+          <form action="/login" method="post" class="login-form">
+          <input type="hidden" name="userId" value="${user.id}">
+          <button class="user-btn" type="submit">${user.first_name}</button>
+          </form>
+          `)
+          $('.login').append($user)
+        })
 
-            $.ajax({
-              url: '/login',
-              method: 'post',
-              data: { userId: users[index].id },
-              success: () => {
-                $('.error-msg1').hide();
-                $('.error-msg2').hide();
+        $('.login-form').on('submit', function (event) {
+          event.preventDefault();
+          const data = $(this).serialize();
 
-                const userEmail = users[index].email;
-                displayUser(userEmail);
-                $('.user-btn').hide();
+          $.ajax({
+            url: '/login',
+            method: 'post',
+            data,
+            success: (data) => {
 
-                const logoutBtn = $('<button type="submit" class="logout-btn"/>')
-                $('.logout').append(logoutBtn)
-                logoutBtn.html('Logout')
+              $('.error-msg1').hide();
+              $('.error-msg2').hide();
 
-              },
-            })
-          });
-        });
+              const userEmail = data.email;
+              displayUser(userEmail);
+              $('.user-btn').hide();
+
+              $('.edit-profile').show();
+              $('.edit-profile').on('click', () => {
+                $('.update-profile').show();
+              })
+
+              const logoutBtn = $('<button type="submit" class="logout-btn"/>')
+              $('.logout').append(logoutBtn)
+              logoutBtn.html('Logout')
+
+            },
+          })
+        })
       }
     })
   }

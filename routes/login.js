@@ -16,9 +16,9 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   loggedInUser.getLoggedInUser(req.body.userId)
   .then(data => {
-    const userID = data[0]
-    req.session.userId = userID.id
-    res.redirect('/')
+    const user = data[0]
+    req.session.userId = user.id
+    res.json ( user )
   })
 })
 module.exports = router;
