@@ -47,9 +47,15 @@ $(document).ready(function () {
         displayItems(res.titles, res.ids, res.completed);
       },
       error: (res) => {
-        displayErrorMessage(false);
+        if (res.status === 403) {
+          displayErrorMessage(false);
+        } else if (res.status === 500) {
+          $('.items-container').empty().append('<h3 class="info error-msg4">This list is currently empty, add something in this category to populate</h3>');
+        }
       }
     })
+    $('.item-list').hide()
+    $('.error-msg4').hide();
   }
 
   // highlights target element and removes highlight from its siblings
@@ -123,7 +129,6 @@ $(document).ready(function () {
     .on("drop", function (event) {
       const id = event.originalEvent.dataTransfer.getData('text');
       const categoryID = $(this).attr("name"); // the category id is the name of the list (set when an item is dragged over a list button).
-      console.log('id', id, 'category', categoryID);
       if (id && categoryID) { // ensure that both id and category id exist before trying to post.
         $.post('/updateitem', { categoryID, id })
           .then((data) => {
