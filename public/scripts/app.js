@@ -5,7 +5,7 @@ $(document).ready(function () {
     const titleList = $('.items-container');
     titleList.empty();
 
-    const ul = $('<ul style="list-style-type:none;"></ul>');
+    const ul = $('<ul class="item-list" style="list-style-type:none;"></ul>');
 
     $.each(titles, (index, title) => {
       let hidden = "hidden";
@@ -28,17 +28,17 @@ $(document).ready(function () {
     userContainer.text(`Logged in as: ${email}`)
   }
 
-  $('.error-msg2').hide();
-  $('.error-msg1').hide();
   const displayErrorMessage = (showMessage1) => {
     if (showMessage1) {
       $('.error-msg2').hide();
-      $('.error-msg1').show().css('background-color', 'red')
+      $('.error-msg1').show();
     } else {
       $('.error-msg1').hide();
-      $('.error-msg2').show().css('background-color', 'red')
+      $('.error-msg2').show();
     }
   }
+
+  // shows the item list for a category, if an error isn't present
   const fetchCategoryItems = (id) => {
     $.ajax({
       url: `/api/categoryitems?categoryId=${id}`,
@@ -48,16 +48,17 @@ $(document).ready(function () {
       },
       error: (res) => {
         displayErrorMessage(false);
-        displayItems(res.titles, res.ids, res.completed);
       }
     })
   }
 
+  // highlights target element and removes highlight from its siblings
   const highlight = (element) => {
     $(element).addClass('highlighted');
     $(element).siblings().removeClass('highlighted');
   };
 
+  // lists the items in specified list
   $('.list-items').on("click mouseover", (event) => {
     event.preventDefault();
     const categoryID = event.target.id;
@@ -114,6 +115,7 @@ $(document).ready(function () {
       fetchCategoryItems(listID);
     });
 
+  // allows dropping into container
   $('.items-container')
   .on("dragover", (event) => {
     event.preventDefault();
@@ -156,6 +158,7 @@ $(document).ready(function () {
       })
       .catch(res => {
         displayErrorMessage(true);
+        $('.wait-msg').hide();
       })
     $('#title').val('');
   })
