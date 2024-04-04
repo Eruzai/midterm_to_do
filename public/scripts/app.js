@@ -16,7 +16,7 @@ $(document).ready(function () {
       };
       const li = $(`<div name=${ids[index]} class="list-entry"><i name="not-done" class="${shown} fa-regular fa-square fa-xl"></i><i name="done" class="${hidden} fa-regular fa-square-check fa-xl"></i>
       <li class="item" draggable="true">${title}</li>
-      <button type="button" name="delete-button"><i class="fa-sharp fa-solid fa-trash fa-xl"></i></button></div>`);
+      <i name="delete-button" class="fa-sharp fa-solid fa-trash fa-xl"></i></div>`);
       ul.append(li);
     });
 
