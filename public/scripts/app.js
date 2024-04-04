@@ -10,7 +10,7 @@ $(document).ready(function () {
     $.each(titles, (index, title) => {
       let hidden = "hidden";
       let shown = null;
-      if(completed[index] === true) {
+      if (completed[index] === true) {
         hidden = null;
         shown = "hidden";
       };
@@ -58,16 +58,16 @@ $(document).ready(function () {
     $(element).siblings().removeClass('highlighted');
   };
 
-  $('.items-container').on("click", function(event) {
+  $('.items-container').on("click", function (event) {
     event.preventDefault();
     const targetName = $(event.target).attr("name");
     const id = $(event.target).parents().attr("name");
 
     // updates item is_deleted = true, doesn't actually delete item from database. asks for confirmation.
-    if(targetName === "delete-button") {
+    if (targetName === "delete-button") {
       const item = $(event.target).siblings('.item')[0].textContent;
       const answer = confirm(`Delete ${item} from your list?`);
-      if(answer) {
+      if (answer) {
         $.post('/deleteitem', { id })
           .then((data) => {
             const id = data[0].category_id;
@@ -77,7 +77,7 @@ $(document).ready(function () {
     }
 
     // updates item is_completed = true
-    if(targetName === "not-done") {
+    if (targetName === "not-done") {
       $.post('/markdone', { id })
         .then((data) => {
           const id = data[0].category_id;
@@ -86,7 +86,7 @@ $(document).ready(function () {
     }
 
     //updates item is_completed = false
-    if(targetName === "done") {
+    if (targetName === "done") {
       $.post('/marktodo', { id })
         .then((data) => {
           const id = data[0].category_id;
@@ -97,13 +97,14 @@ $(document).ready(function () {
 
   // dragging an item over a list button names the list container after the id of the button (used later to update an item in the database), highlights the button, and displays the appropriate list
   $('.list-items')
-    .on("dragenter click", function(event) {
+    .on("dragenter click", function (event) {
       event.preventDefault();
       const listID = event.target.id;
       const listContainer = $(this).parents().find('.items-container');
       $(listContainer).attr("name", listID);
       highlight(event.target);
       fetchCategoryItems(listID);
+      $('.error-msg3').hide();
     });
 
   // allows dropping into container
@@ -113,26 +114,26 @@ $(document).ready(function () {
     })
 
   $('.items-container')
-  // dragging an item from the list grabs the text content of that item
-  .on("dragstart", (event) => {
-    const item = $(event.target).parent().attr("name");
-    event.originalEvent.dataTransfer.setData('text/plain', item);
-  })
-  // dropping an item sends a post request to update the item in the database using the data that was being dragged and the category id. the appropriate list is then refreshed to display the change
-  .on("drop", function(event) {
-    const id = event.originalEvent.dataTransfer.getData('text');
-    const categoryID = $(this).attr("name"); // the category id is the name of the list (set when an item is dragged over a list button).
-    console.log('id', id, 'category', categoryID);
-    if(id && categoryID) { // ensure that both id and category id exist before trying to post.
-      $.post('/updateitem', { categoryID, id })
-        .then((data) => {
-          const id = data[0].category_id;
-          fetchCategoryItems(id);
-        })
-    } else {
-      console.log('POST ABORTED! Attempted to post with ID', id, ' and category ID', categoryID);
-    }
-  })
+    // dragging an item from the list grabs the text content of that item
+    .on("dragstart", (event) => {
+      const item = $(event.target).parent().attr("name");
+      event.originalEvent.dataTransfer.setData('text/plain', item);
+    })
+    // dropping an item sends a post request to update the item in the database using the data that was being dragged and the category id. the appropriate list is then refreshed to display the change
+    .on("drop", function (event) {
+      const id = event.originalEvent.dataTransfer.getData('text');
+      const categoryID = $(this).attr("name"); // the category id is the name of the list (set when an item is dragged over a list button).
+      console.log('id', id, 'category', categoryID);
+      if (id && categoryID) { // ensure that both id and category id exist before trying to post.
+        $.post('/updateitem', { categoryID, id })
+          .then((data) => {
+            const id = data[0].category_id;
+            fetchCategoryItems(id);
+          })
+      } else {
+        console.log('POST ABORTED! Attempted to post with ID', id, ' and category ID', categoryID);
+      }
+    })
 
   // the form field text is sent via a post request as an object to add the item to the database. the category the item was added to is then highlighted and shown on the page.
   $('.add-todo-item').on("click", function (event) {
@@ -153,9 +154,19 @@ $(document).ready(function () {
         $('.wait-msg').hide();
       })
       .catch(res => {
-        displayErrorMessage(true);
+        const titleValue = $('#title').val().trim();
+        if (res.status === 403) {
+          displayErrorMessage(true);
+        } else if (titleValue === '') {
+          $('.error-msg3').show();
+        }
         $('.wait-msg').hide();
       })
+
+    $('#title').on('input', () => {
+      $('.error-msg3').hide();
+    });
+
     $('#title').val('');
   })
 
@@ -182,6 +193,7 @@ $(document).ready(function () {
     }
 
     updateEmail(newEmail);
+    $('.update-profile').hide()
     $('#email').val('');
   })
 
@@ -212,9 +224,9 @@ $(document).ready(function () {
             method: 'post',
             data,
             success: (data) => {
-
               $('.error-msg1').hide();
               $('.error-msg2').hide();
+              $('.error-msg3').hide();
 
               const userEmail = data.email;
               displayUser(userEmail);
