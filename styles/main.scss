@@ -25,6 +25,7 @@ main {
 
   button:hover {
     cursor: pointer;
+    background-color: orange;
   }
 
   .categories-container {
@@ -53,6 +54,7 @@ main {
 
     i:hover {
       cursor: pointer;
+      color: #00ffb1;
     }
 
     li {
@@ -61,6 +63,7 @@ main {
 
     li:hover {
       cursor: grab;
+      color: #00ffb1;
     }
 
     button {
