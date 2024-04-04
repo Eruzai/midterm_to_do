@@ -135,3 +135,22 @@ main {
 .hidden {
   display: none;
 }
+
+#email, #title {
+  width: 300px;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 20;
+  color: #333;
+}
+
+#email:focus, #title:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+button {
+  padding: 8px 16px;
+  font-size: 12px;
+}
