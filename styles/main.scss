@@ -8,9 +8,23 @@ main {
   flex-direction: column;
   align-items: center;
 
+  font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: large;
 
   .add-item {
     padding: 10px;
+  }
+
+  button {
+    font-size: large;
+    border-radius: 8px;
+  }
+
+  button:hover {
+    cursor: pointer;
   }
 
   .categories-container {
@@ -28,6 +42,7 @@ main {
 
     background-color: #ac7a17;
     background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+    box-shadow: 7px 7px #325745;
     margin: 10px;
 
     ul {
@@ -52,9 +67,6 @@ main {
       padding: 0px;
       border: 0px;
       background: none;
-      :hover {
-        cursor: pointer;
-      }
     }
 
     .list-entry {

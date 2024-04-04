@@ -1,29 +1,41 @@
 header {
   display: flex;
-  padding: 15px;
   justify-content: space-between;
+  align-items: center;
+  padding: 15px;
 
-  .login {
-    display: flex;
+  font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+
+  .logo {
+    font-size: 36px;
+  }
+
+  button {
+    font-size: large;
+    border-radius: 8px;
+  }
+
+  button:hover {
+    cursor: pointer;
+    background-color: yellow;
   }
 
   .login-stuff {
     display: flex;
 
+    .login {
+      display: flex;
+    }
+
     .user-login {
       margin: 0px 1em;
     }
 
-    .logout-btn:hover {
-      cursor: pointer;
-    }
-
     .user-btn {
       margin: 0px .5em;
-    }
-
-    .user-btn:hover {
-      cursor: pointer;
     }
   }
 }
