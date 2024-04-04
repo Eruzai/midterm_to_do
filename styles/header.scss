@@ -2,12 +2,18 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
+  padding: 16px;
+  margin-bottom: 36px;
+
+  background-color: #ac7a17;
+  background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+  border: 3px solid black;
+  box-shadow: 7px 7px #325745;
 
   font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 900;
-    font-style: normal;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
 
   .logo {
     font-size: 36px;
@@ -23,19 +29,32 @@ header {
     background-color: orange;
   }
 
-  .login-stuff {
+  .user {
     display: flex;
+    align-items: center;
 
     .login {
       display: flex;
     }
 
-    .user-login {
-      margin: 0px 1em;
-    }
-
     .user-btn {
       margin: 0px .5em;
+    }
+
+    .email-and-logout {
+      display: flex;
+      align-items: center;
+      button {
+        margin-left: 16px;
+      }
+    }
+
+    .edit-and-form {
+      display: flex;
+      justify-content: flex-end;
+      form {
+        margin-left: 16px;
+      }
     }
   }
 }
