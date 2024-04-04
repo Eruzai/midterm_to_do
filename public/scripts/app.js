@@ -58,17 +58,8 @@ $(document).ready(function () {
     $(element).siblings().removeClass('highlighted');
   };
 
-  // lists the items in specified list
-  $('.list-items').on("click", (event) => {
-    event.preventDefault();
-    const categoryID = event.target.id;
-    highlight(event.target);
-    fetchCategoryItems(event.target.id);
-  })
-
   $('.items-container').on("click", function(event) {
     event.preventDefault();
-
     const targetName = $(event.target).attr("name");
     const id = $(event.target).parents().attr("name");
 
@@ -106,7 +97,7 @@ $(document).ready(function () {
 
   // dragging an item over a list button names the list container after the id of the button (used later to update an item in the database), highlights the button, and displays the appropriate list
   $('.list-items')
-    .on("dragenter", function(event) {
+    .on("dragenter click", function(event) {
       event.preventDefault();
       const listID = event.target.id;
       const listContainer = $(this).parents().find('.items-container');
@@ -131,11 +122,16 @@ $(document).ready(function () {
   .on("drop", function(event) {
     const id = event.originalEvent.dataTransfer.getData('text');
     const categoryID = $(this).attr("name"); // the category id is the name of the list (set when an item is dragged over a list button).
-    $.post('/updateitem', { categoryID, id })
-      .then((data) => {
-        const id = data[0].category_id;
-        fetchCategoryItems(id);
-      })
+    console.log('id', id, 'category', categoryID);
+    if(id && categoryID) { // ensure that both id and category id exist before trying to post.
+      $.post('/updateitem', { categoryID, id })
+        .then((data) => {
+          const id = data[0].category_id;
+          fetchCategoryItems(id);
+        })
+    } else {
+      console.log('POST ABORTED! Attempted to post with ID', id, ' and category ID', categoryID);
+    }
   })
 
   // the form field text is sent via a post request as an object to add the item to the database. the category the item was added to is then highlighted and shown on the page.
