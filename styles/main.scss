@@ -1,3 +1,10 @@
+@mixin boxTheme($color: white) {
+  background-color: $color;
+  background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+  box-shadow: 7px 7px #325745;
+  border: 3px solid black;
+}
+
 body {
   background-color: #00ccb1;
   background-image: url("https://www.transparenttextures.com/patterns/cartographer.png");
@@ -29,10 +36,8 @@ main {
   }
 
   .add-item {
-    background-color: #a3408a;
-    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-    box-shadow: 7px 7px #325745;
-    border: 3px solid black;
+    @include boxTheme($color: #a3408a);
+
     margin-bottom: 36px;
 
     label {
@@ -46,12 +51,14 @@ main {
     flex-direction: column;
     align-items: center;
 
-    background-color: #3aa59d;
-    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-    box-shadow: 7px 7px #325745;
-    border: 3px solid black;
+    @include boxTheme($color: #3aa59d);
+
     padding: 16px;
     margin-bottom: 36px;
+
+    h3 {
+      margin-top: 0px;
+    }
 
     button {
       margin: 0px 16px;
@@ -63,13 +70,10 @@ main {
     display: flex;
     flex-direction: column;
 
-    background-color: #59a53a;
-    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-    box-shadow: 7px 7px #325745;
     margin: 10px;
 
     ul {
-      border: 3px solid black;
+      @include boxTheme($color: #59a53a);
       padding: 16px;
       margin: 0px;
     }
@@ -81,6 +85,7 @@ main {
 
     li {
       margin: .5em;
+      font-weight: 700;
     }
 
     li:hover {
@@ -104,10 +109,7 @@ main {
 .messages {
   .error {
     color: red;
-    background-color: black;
-    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-    box-shadow: 7px 7px #325745;
-    border: 3px solid black;
+    @include boxTheme($color: black);
     padding: 16px;
     margin: 10px;
   }
