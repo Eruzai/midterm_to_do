@@ -9,10 +9,10 @@ main {
   align-items: center;
 
   font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
-    font-size: large;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: large;
 
   .add-item {
     padding: 10px;
@@ -28,11 +28,33 @@ main {
     background-color: orange;
   }
 
+  .add-item {
+    background-color: #a3408a;
+    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+    box-shadow: 7px 7px #325745;
+    border: 3px solid black;
+    margin-bottom: 36px;
+
+    label {
+      font-weight: 700;
+      font-size: x-large;
+    }
+  }
+
   .categories-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: #3aa59d;
+    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+    box-shadow: 7px 7px #325745;
+    border: 3px solid black;
+    padding: 16px;
+    margin-bottom: 36px;
 
     button {
-      margin: 15px;
+      margin: 0px 16px;
     }
   }
 
@@ -41,14 +63,14 @@ main {
     display: flex;
     flex-direction: column;
 
-    background-color: #ac7a17;
+    background-color: #59a53a;
     background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
     box-shadow: 7px 7px #325745;
     margin: 10px;
 
     ul {
       border: 3px solid black;
-      padding: 15px;
+      padding: 16px;
       margin: 0px;
     }
 
@@ -63,7 +85,6 @@ main {
 
     li:hover {
       cursor: grab;
-      color: #00ffb1;
     }
 
     button {
@@ -83,9 +104,11 @@ main {
 .messages {
   .error {
     color: red;
+    background-color: black;
+    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+    box-shadow: 7px 7px #325745;
     border: 3px solid black;
-    background-color: white;
-    padding: 15px;
+    padding: 16px;
     margin: 10px;
   }
 }
