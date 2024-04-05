@@ -12,15 +12,15 @@ const findIfRestaurantExists = (string) => {
     }
   };
 
-  return request(`https://api.yelp.com/v3/businesses/search?location=Canada&term=${string}&sort_by=best_match&limit=20`, options)
+  return request(`https://api.yelp.com/v3/businesses/search?location=Canada&term=${string}&sort_by=best_match&limit=1`, options)
   .then((body) => {
     const dataArray = JSON.parse(body).businesses
     let data = null;
 
     if (dataArray.length > 0) {
-      const data = JSON.parse(body).businesses[0].name;
+      data = dataArray[0].name;
     }
-
+    
     if(data == string) {
       return true;
     } else {
