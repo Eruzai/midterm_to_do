@@ -8,7 +8,7 @@ const findIfRestaurantExists = (string) => {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer Ylv_u1fLkFegCR7Z-ATQ0fMh0H0DUsT49JH3fYG5993Hfc1kRIDTgv9S0g96bQoUOHIhqvt7SoBhhhVjGRu695QZtZBlcHKiwdm7CTNlu_AndQRowEhck3yFLBgHZnYx'
+      Authorization: `Bearer ${process.env.RESTAURANT_API_KEY}`
     }
   };
 
@@ -20,7 +20,7 @@ const findIfRestaurantExists = (string) => {
     if (dataArray.length > 0) {
       data = dataArray[0].name;
     }
-    
+
     if(data == string) {
       return true;
     } else {
