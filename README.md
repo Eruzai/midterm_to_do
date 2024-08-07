@@ -2,9 +2,7 @@
 
 This app allows a logged in user to store todo items in automatically categorized lists for movies, books, restaurants or items to purchase! Items can be marked as completed, manually moved to other lists or deleted as required.
 
-![Screenshot displaying list and categories](/docs/screen_captures/List_display.png "List display")
-
-![Video showing how to move an item into a different category](/docs/screen_captures/Move_item.mov "Recategorizing an item")
+![Video showing how to move an item into a different category](/docs/screen_captures/Move_item.gif "Recategorizing an item")
 
 ## Getting Started
 
